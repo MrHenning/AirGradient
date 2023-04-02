@@ -89,6 +89,8 @@ void setup()
     connectToWifi();
   }
 
+  u8g2.setFlipMode(1);
+
   updateOLED2("Warming", "up the", "sensors");
 
   ag.CO2_Init();
