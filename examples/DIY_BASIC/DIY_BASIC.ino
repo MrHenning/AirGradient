@@ -75,6 +75,9 @@ float temp = 0;
 int hum = 0;
 long val;
 
+// When Philips AVENT displays 22.5C, AirGradient displays 23.7C
+const float tempCorrection = -1.2;
+
 void setup()
 {
   Serial.begin(115200);
@@ -82,7 +85,7 @@ void setup()
   u8g2.begin();
   updateOLED();
 
-    if (connectWIFI) {
+  if (connectWIFI) {
     connectToWifi();
   }
 
@@ -127,7 +130,7 @@ void updateTempHum()
     if (currentMillis - previousTempHum >= tempHumInterval) {
       previousTempHum += tempHumInterval;
       TMP_RH result = ag.periodicFetchData();
-      temp = result.t;
+      temp = result.t + tempCorrection;
       hum = result.rh;
       Serial.println(String(temp));
     }
