@@ -114,7 +114,14 @@ void updateCo2()
     if (currentMillis - previousCo2 >= co2Interval) {
       previousCo2 += co2Interval;
       Co2 = ag.getCO2_Raw();
-      Serial.println(String(Co2));
+      if (Co2 < 10000)
+      {
+        Serial.println(String(Co2));
+      }
+      else
+      {
+        Serial.println("n/a");
+      }
     }
 }
 
